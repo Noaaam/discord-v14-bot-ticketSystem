@@ -1,0 +1,17 @@
+{
+  "name": "discord-v14-bot-ticketsystem",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "noam",
+  "license": "ISC",
+  "dependencies": {
+    "ascii-table": "^0.0.9",
+    "discord-html-transcripts": "^3.1.2",
+    "discord.js": "^14.7.1",
+    "mongoose": "^6.8.3"
+  }
+}
