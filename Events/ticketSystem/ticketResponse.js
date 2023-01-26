@@ -52,7 +52,8 @@ module.exports = {
                     new ButtonBuilder().setCustomId('ticket-close').setLabel(config.ticketClose).setStyle(ButtonStyle.Danger).setEmoji(config.ticketCloseEmoji),
                     new ButtonBuilder().setCustomId('ticket-lock').setLabel(config.ticketLock).setStyle(ButtonStyle.Secondary).setEmoji(config.ticketLockEmoji),
                     new ButtonBuilder().setCustomId('ticket-unlock').setLabel(config.ticketUnlock).setStyle(ButtonStyle.Secondary).setEmoji(config.ticketUnlockEmoji),
-                    new ButtonBuilder().setCustomId('ticket-claim').setLabel(config.ticketClaim).setStyle(ButtonStyle.Secondary).setEmoji(config.ticketClaimEmoji),
+                    new ButtonBuilder().setCustomId('ticket-manage').setLabel(config.ticketManage).setStyle(ButtonStyle.Secondary).setEmoji(config.ticketManageEmoji),
+                    new ButtonBuilder().setCustomId('ticket-claim').setLabel(config.ticketClaim).setStyle(ButtonStyle.Primary).setEmoji(config.ticketClaimEmoji),
                 );
                 channel.send({embeds: ([embed]),components: [button]}).catch(error => {return});
                 const handlersmention = await channel.send({content : '<@&' + data.Handlers + '>'});

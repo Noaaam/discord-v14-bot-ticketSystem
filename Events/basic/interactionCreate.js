@@ -1,4 +1,4 @@
-const { CommandInteraction } = require('discord.js')
+const { CommandInteraction } = require('discord.js');
 const { ButtonInteraction } = require('discord.js');
 const { InteractionType } = require('discord.js');
 

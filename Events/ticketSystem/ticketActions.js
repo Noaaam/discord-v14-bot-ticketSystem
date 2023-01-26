@@ -1,4 +1,4 @@
-const {EmbedBuilder, PermissionFlagsBits} = require('discord.js');
+const {EmbedBuilder, PermissionFlagsBits, UserSelectMenuBuilder, ActionRowBuilder} = require('discord.js');
 const {createTranscript} = require('discord-html-transcripts');
 const TicketSetup = require('../../Schemas/TicketSetup');
 const TicketSchema = require('../../Schemas/Ticket');
@@ -10,7 +10,7 @@ module.exports = {
         const {guild, member, customId, channel } = interaction;
         const {ManageChannels, SendMessages} = PermissionFlagsBits;
         if(!interaction.isButton()) return;
-        if(!['ticket-close', 'ticket-lock', 'ticket-unlock', 'ticket-claim'].includes(customId)) return;
+        if(!['ticket-close', 'ticket-lock', 'ticket-unlock', 'ticket-manage', 'ticket-claim'].includes(customId)) return;
         const docs = await TicketSetup.findOne({GuildID: guild.id});
         if (!docs) return;
         const errorEmbed = new EmbedBuilder().setColor('Red').setDescription(config.ticketError);
@@ -55,18 +55,18 @@ module.exports = {
                     }).catch(error => {return});
                     channel.send({embeds: [closingTicket]}).catch(error => {return});
                     await TicketSchema.findOneAndDelete({GuildID: guild.id, ChannelID: channel.id});
-                    setTimeout(() => {channel.delete().catch(error => {return});}, 10000);
+                    setTimeout(() => {channel.delete().catch(error => {return});}, 5000);
                 break;
 
                 case 'ticket-lock':
-                if(!member.permissions.has(ManageChannels)) return interaction.reply({embeds: [nopermissionsEmbed], ephemeral: true}).catch(error => {return});
-                alreadyEmbed.setDescription(config.ticketAlreadyLocked);
-                if (data.Locked == true) return interaction.reply({embeds: [alreadyEmbed], ephemeral: true}).catch(error => {return});
-                await TicketSchema.updateOne({ChannelID: channel.id}, {Locked: true});
-                executeEmbed.setDescription(config.ticketSuccessLocked);
-                data.MembersID.forEach((m) => {channel.permissionOverwrites.edit(m, {SendMessages: false}).catch(error => {return})})
-                channel.permissionOverwrites.edit(data.OwnerID, {SendMessages: false}).catch(error => {return});
-                return interaction.reply({embeds: [executeEmbed]}).catch(error => {return});
+                    if(!member.permissions.has(ManageChannels)) return interaction.reply({embeds: [nopermissionsEmbed], ephemeral: true}).catch(error => {return});
+                    alreadyEmbed.setDescription(config.ticketAlreadyLocked);
+                    if (data.Locked == true) return interaction.reply({embeds: [alreadyEmbed], ephemeral: true}).catch(error => {return});
+                    await TicketSchema.updateOne({ChannelID: channel.id}, {Locked: true});
+                    executeEmbed.setDescription(config.ticketSuccessLocked);
+                    data.MembersID.forEach((m) => {channel.permissionOverwrites.edit(m, {SendMessages: false}).catch(error => {return})})
+                    channel.permissionOverwrites.edit(data.OwnerID, {SendMessages: false}).catch(error => {return});
+                    return interaction.reply({embeds: [executeEmbed]}).catch(error => {return});
 
                 case 'ticket-unlock':
                     if(!member.permissions.has(ManageChannels)) return interaction.reply({embeds: [nopermissionsEmbed], ephemeral: true}).catch(error => {return});
@@ -78,6 +78,15 @@ module.exports = {
                     channel.permissionOverwrites.edit(data.OwnerID, {SendMessages: true}).catch(error => {return});
                     return interaction.reply({embeds: [executeEmbed]}).catch(error => {return});
 
+                case 'ticket-manage':
+                    if (!member.permissions.has(ManageChannels)) return interaction.reply({embeds: [nopermissionsEmbed], ephemeral: true}).catch(error => {return});
+                    const menu = new UserSelectMenuBuilder()
+                    .setCustomId('ticket-manage-menu')
+                    .setPlaceholder(config.ticketManageMenuEmoji + config.ticketManageMenuTitle)
+                    .setMinValues(1)
+                    .setMaxValues(1)
+                    interaction.reply({components: [new ActionRowBuilder().addComponents(menu)], ephemeral: true}).catch(error => {return});
+                    
                 case 'ticket-claim':
                     if (!member.permissions.has(ManageChannels)) return interaction.reply({embeds: [nopermissionsEmbed], ephemeral: true}).catch(error => {return});
                     alreadyEmbed.setDescription(config.ticketAlreadyClaim + ' <@' + data.ClaimedBy + '>.');

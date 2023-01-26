@@ -2,8 +2,8 @@ module.exports = {
     // Basic configuration
     token: '', // Place here your token
     status: 'v1.0',
-    developerGuildID: '', // Place here your guild ID
-    database: '', // Place here yor mongodb access
+    developerGuildID: '', // Place here your Guild ID
+    database: '', // Place here your MongoDB access
 
     // Ticket configuration 
     ticketName: 'ticket-',
@@ -22,8 +22,12 @@ module.exports = {
     ticketUnlockEmoji: '🔓',
     ticketClaim: 'Claim',
     ticketClaimEmoji: '👋',
+    ticketManage: 'Members',
+    ticketManageEmoji: '➕',
+    ticketManageMenuTitle: 'Choose a member.',
+    ticketManageMenuEmoji: '❔',
     ticketCloseTitle: 'The ticket is currently being closed...',
-    ticketCloseDescription: 'Ticket will be closed in 10 seconds.',
+    ticketCloseDescription: 'Ticket will be closed in 5 seconds.',
     ticketSuccessLocked: 'Ticket was locked succesfully.',
     ticketAlreadyLocked: 'This ticket is already locked.',
     ticketSuccessUnlocked: 'Ticket was unlocked succesfully.',
