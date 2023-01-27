@@ -66,7 +66,7 @@ module.exports = {
                     executeEmbed.setDescription(config.ticketSuccessLocked);
                     data.MembersID.forEach((m) => {channel.permissionOverwrites.edit(m, {SendMessages: false}).catch(error => {return})})
                     channel.permissionOverwrites.edit(data.OwnerID, {SendMessages: false}).catch(error => {return});
-                    return interaction.reply({embeds: [executeEmbed]}).catch(error => {return});
+                    return interaction.channel.send({embeds: [executeEmbed]}).catch(error => {return});
 
                 case 'ticket-unlock':
                     if(!member.permissions.has(ManageChannels)) return interaction.reply({embeds: [nopermissionsEmbed], ephemeral: true}).catch(error => {return});
@@ -76,7 +76,7 @@ module.exports = {
                     executeEmbed.setDescription(config.ticketSuccessUnlocked);
                     data.MembersID.forEach((m) => {channel.permissionOverwrites.edit(m, {SendMessages: true}).catch(error => {return})});
                     channel.permissionOverwrites.edit(data.OwnerID, {SendMessages: true}).catch(error => {return});
-                    return interaction.reply({embeds: [executeEmbed]}).catch(error => {return});
+                    return interaction.channel.send({embeds: [executeEmbed]}).catch(error => {return});
 
                 case 'ticket-manage':
                     if (!member.permissions.has(ManageChannels)) return interaction.reply({embeds: [nopermissionsEmbed], ephemeral: true}).catch(error => {return});
@@ -85,7 +85,7 @@ module.exports = {
                     .setPlaceholder(config.ticketManageMenuEmoji + config.ticketManageMenuTitle)
                     .setMinValues(1)
                     .setMaxValues(1)
-                    interaction.reply({components: [new ActionRowBuilder().addComponents(menu)], ephemeral: true}).catch(error => {return});
+                    return interaction.reply({components: [new ActionRowBuilder().addComponents(menu)], ephemeral: true}).catch(error => {return});
                     
                 case 'ticket-claim':
                     if (!member.permissions.has(ManageChannels)) return interaction.reply({embeds: [nopermissionsEmbed], ephemeral: true}).catch(error => {return});
@@ -95,7 +95,7 @@ module.exports = {
                     let lasttopic = channel.topic;
                     await channel.setTopic(lasttopic + config.ticketDescriptionClaim + ' <@' + member.id + '>.').catch(error => {return});
                     executeEmbed.setDescription(config.ticketSuccessClaim + ' <@' + member.id + '>.');
-                    interaction.reply({embeds: [executeEmbed]}).catch(error => {return});
+                    interaction.channel.send({embeds: [executeEmbed]}).catch(error => {return});
                     break;
             }
         })

@@ -27,7 +27,7 @@ module.exports = {
                 console.log(error);
                 interaction.reply({content: 'Something went wrong while executing this interaction.', ephemeral: true}).catch(error => {return});
             }
-        } else if(interaction.isSelectMenu()) {
+        } else if(interaction.isStringSelectMenu()) {
             const { selectMenus } = client;
             const menu = selectMenus.get(interaction.customId);
             if(!menu) return;
