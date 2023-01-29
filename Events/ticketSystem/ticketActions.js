@@ -25,7 +25,7 @@ module.exports = {
             await guild.members.cache.get(data.OwnerID);
             switch (customId) {
                 case 'ticket-close':
-                    if (!member.permissions.has(ManageChannels)) return interaction.reply({embeds: [nopermissionsEmbed], ephemeral: true});
+                    if ((!member.permissions.has(ManageChannels)) & (!member.roles.cache.has(docs.Handlers))) return interaction.reply({embeds: [nopermissionsEmbed], ephemeral: true}).catch(error => {return});
                     const transcript = await createTranscript(channel, {
                         limit: -1,
                         returnType: 'attachment',
@@ -59,7 +59,7 @@ module.exports = {
                 break;
 
                 case 'ticket-lock':
-                    if(!member.permissions.has(ManageChannels)) return interaction.reply({embeds: [nopermissionsEmbed], ephemeral: true}).catch(error => {return});
+                    if ((!member.permissions.has(ManageChannels)) & (!member.roles.cache.has(docs.Handlers))) return interaction.reply({embeds: [nopermissionsEmbed], ephemeral: true}).catch(error => {return});
                     alreadyEmbed.setDescription(config.ticketAlreadyLocked);
                     if (data.Locked == true) return interaction.reply({embeds: [alreadyEmbed], ephemeral: true}).catch(error => {return});
                     await TicketSchema.updateOne({ChannelID: channel.id}, {Locked: true});
@@ -69,7 +69,7 @@ module.exports = {
                     return interaction.channel.send({embeds: [executeEmbed]}).catch(error => {return});
 
                 case 'ticket-unlock':
-                    if(!member.permissions.has(ManageChannels)) return interaction.reply({embeds: [nopermissionsEmbed], ephemeral: true}).catch(error => {return});
+                    if ((!member.permissions.has(ManageChannels)) & (!member.roles.cache.has(docs.Handlers))) return interaction.reply({embeds: [nopermissionsEmbed], ephemeral: true}).catch(error => {return});
                     alreadyEmbed.setDescription(config.ticketAlreadyUnlocked);
                     if (data.Locked == false) return interaction.reply({embeds: [alreadyEmbed], ephemeral: true}).catch(error => {return});
                     await TicketSchema.updateOne({ChannelID: channel.id}, {Locked: false});
@@ -79,7 +79,7 @@ module.exports = {
                     return interaction.channel.send({embeds: [executeEmbed]}).catch(error => {return});
 
                 case 'ticket-manage':
-                    if (!member.permissions.has(ManageChannels)) return interaction.reply({embeds: [nopermissionsEmbed], ephemeral: true}).catch(error => {return});
+                    if ((!member.permissions.has(ManageChannels)) & (!member.roles.cache.has(docs.Handlers))) return interaction.reply({embeds: [nopermissionsEmbed], ephemeral: true}).catch(error => {return});
                     const menu = new UserSelectMenuBuilder()
                     .setCustomId('ticket-manage-menu')
                     .setPlaceholder(config.ticketManageMenuEmoji + config.ticketManageMenuTitle)
@@ -88,7 +88,7 @@ module.exports = {
                     return interaction.reply({components: [new ActionRowBuilder().addComponents(menu)], ephemeral: true}).catch(error => {return});
                     
                 case 'ticket-claim':
-                    if (!member.permissions.has(ManageChannels)) return interaction.reply({embeds: [nopermissionsEmbed], ephemeral: true}).catch(error => {return});
+                    if ((!member.permissions.has(ManageChannels)) & (!member.roles.cache.has(docs.Handlers))) return interaction.reply({embeds: [nopermissionsEmbed], ephemeral: true}).catch(error => {return});
                     alreadyEmbed.setDescription(config.ticketAlreadyClaim + ' <@' + data.ClaimedBy + '>.');
                     if (data.Claimed == true) return interaction.reply({embeds: [alreadyEmbed], ephemeral: true}).catch(error => {return});
                     await TicketSchema.updateOne({ChannelID: channel.id}, {Claimed: true, ClaimedBy: member.id});
