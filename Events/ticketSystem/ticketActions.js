@@ -53,6 +53,7 @@ module.exports = {
                         embeds: [transcriptEmbed],
                         files: [transcript],
                     }).catch(error => {return});
+                    interaction.deferUpdate().catch(error => {return});
                     channel.send({embeds: [closingTicket]}).catch(error => {return});
                     await TicketSchema.findOneAndDelete({GuildID: guild.id, ChannelID: channel.id});
                     setTimeout(() => {channel.delete().catch(error => {return});}, 5000);
@@ -66,6 +67,7 @@ module.exports = {
                     executeEmbed.setDescription(config.ticketSuccessLocked);
                     data.MembersID.forEach((m) => {channel.permissionOverwrites.edit(m, {SendMessages: false}).catch(error => {return})})
                     channel.permissionOverwrites.edit(data.OwnerID, {SendMessages: false}).catch(error => {return});
+                    interaction.deferUpdate().catch(error => {return});
                     return interaction.channel.send({embeds: [executeEmbed]}).catch(error => {return});
 
                 case 'ticket-unlock':
@@ -76,6 +78,7 @@ module.exports = {
                     executeEmbed.setDescription(config.ticketSuccessUnlocked);
                     data.MembersID.forEach((m) => {channel.permissionOverwrites.edit(m, {SendMessages: true}).catch(error => {return})});
                     channel.permissionOverwrites.edit(data.OwnerID, {SendMessages: true}).catch(error => {return});
+                    interaction.deferUpdate().catch(error => {return});
                     return interaction.channel.send({embeds: [executeEmbed]}).catch(error => {return});
 
                 case 'ticket-manage':
@@ -95,6 +98,7 @@ module.exports = {
                     let lasttopic = channel.topic;
                     await channel.setTopic(lasttopic + config.ticketDescriptionClaim + ' <@' + member.id + '>.').catch(error => {return});
                     executeEmbed.setDescription(config.ticketSuccessClaim + ' <@' + member.id + '>.');
+                    interaction.deferUpdate().catch(error => {return});
                     interaction.channel.send({embeds: [executeEmbed]}).catch(error => {return});
                     break;
             }
