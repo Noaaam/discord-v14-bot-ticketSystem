@@ -95,8 +95,8 @@ module.exports = {
                     alreadyEmbed.setDescription(config.ticketAlreadyClaim + ' <@' + data.ClaimedBy + '>.');
                     if (data.Claimed == true) return interaction.reply({embeds: [alreadyEmbed], ephemeral: true}).catch(error => {return});
                     await TicketSchema.updateOne({ChannelID: channel.id}, {Claimed: true, ClaimedBy: member.id});
-                    let lasttopic = channel.topic;
-                    await channel.setTopic(lasttopic + config.ticketDescriptionClaim + ' <@' + member.id + '>.').catch(error => {return});
+                    let lastinfos = channel;
+                    await channel.edit({name: '👋・' + lastinfos.name, topic: lastinfos.topic + config.ticketDescriptionClaim + '<@' + member.id + '>.'})
                     executeEmbed.setDescription(config.ticketSuccessClaim + ' <@' + member.id + '>.');
                     interaction.deferUpdate().catch(error => {return});
                     interaction.channel.send({embeds: [executeEmbed]}).catch(error => {return});
