@@ -1,13 +1,12 @@
 function loadCommands(client) {
-  const ascii = require('ascii-table');
   const fs = require('fs');
-  const table = new ascii().setHeading('Folders', 'Commands', 'Status');
   const config = require('../config');
+  require('colors');
 
   let commandsArray = [];
   let developerArray = [];
 
-  const commandsFolder = fs.readdirSync('./commands');
+  const commandsFolder = fs.readdirSync('./Commands');
   for (const folder of commandsFolder) {
     const commandFiles = fs
       .readdirSync(`./Commands/${folder}`)
@@ -21,7 +20,7 @@ function loadCommands(client) {
       if (commandFile.developer) developerArray.push(commandFile.data.toJSON());
       else commandsArray.push(commandFile.data.toJSON());
 
-      table.addRow(folder, file, "🟩");
+      console.log('[Commands]'.red + ` ${file.split('.')[0]} has been loaded.`);
       continue;
     }
   }
@@ -29,8 +28,6 @@ function loadCommands(client) {
   client.application.commands.set(commandsArray);
   const developerGuild = client.guilds.cache.get(config.developerGuildID);
   developerGuild.commands.set(developerArray);
-
-  return console.log(table.toString());
 }
 
 module.exports = { loadCommands };
