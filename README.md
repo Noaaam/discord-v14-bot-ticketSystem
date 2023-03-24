@@ -3,7 +3,7 @@
 ## `An advanced ticket system, in discord.js v14, everything is configurable.`
 
 
-🎬[See a preview](https://www.youtube.com/watch?v=p8gh3V73Q9I)
+🎬[See a preview](https://youtu.be/G9LgoFfvLQk)
 
 
 
