@@ -49,7 +49,13 @@
       .addStringOption((option) =>
         option
           .setName('button')
-          .setDescription('Choose your style (Format: Name of button,Emoji (Dont use space)).')
+          .setDescription('Choose a name for the ticket embed.')
+          .setRequired(true)
+      )
+      .addStringOption((option) =>
+        option
+          .setName('emoji')
+          .setDescription('Choose a style, so choose a emoji.')
           .setRequired(true)
       ),
     async execute(interaction) {
@@ -61,8 +67,8 @@
         const handlers = options.getRole('handlers');
         const everyone = options.getRole('everyone');
         const description = options.getString('description');
-        const button = options.getString('button').split(',');
-        const emoji = button[1];
+        const button = options.getString('button');
+        const emoji = options.getString('emoji');
         await TicketSetup.findOneAndUpdate(
           { GuildID: guild.id },
           {
@@ -72,7 +78,8 @@
             Handlers: handlers.id,
             Everyone: everyone.id,
             Description: description,
-            Button: [button[0]],
+            Button: button,
+            Emoji: emoji,
           },
           {
             new: true,
@@ -81,15 +88,15 @@
         );
         const embed = new EmbedBuilder().setDescription(description);
         const buttonshow = new ButtonBuilder()
-          .setCustomId(button[0])
-          .setLabel(button[0])
+          .setCustomId(button)
+          .setLabel(button)
           .setEmoji(emoji)
           .setStyle(ButtonStyle.Primary);
-  
         await guild.channels.cache.get(channel.id).send({
           embeds: [embed],
           components: [new ActionRowBuilder().addComponents(buttonshow)],
         }).catch(error => {return});
+        return interaction.reply({ embeds: [new EmbedBuilder().setDescription('The ticket panel was successfully created.').setColor('Green')], ephemeral: true});
       } catch (err) {
         console.log(err);
         const errEmbed = new EmbedBuilder().setColor('Red').setDescription(config.ticketError);
