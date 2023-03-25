@@ -23,7 +23,6 @@
 ## The modules necessary for the proper functioning of the script.
 
 ``discord.js``
-``fs``
 ``discord-html-transcripts``
 ``mongoose``
 ``colors``
