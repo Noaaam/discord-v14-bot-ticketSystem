@@ -49,7 +49,7 @@
       .addStringOption((option) =>
         option
           .setName('button')
-          .setDescription('Format: (Name of button, Emoji)')
+          .setDescription('Choose your style (Format: Name of button,Emoji (Dont use space)).')
           .setRequired(true)
       ),
     async execute(interaction) {
