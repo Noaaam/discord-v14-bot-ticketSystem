@@ -1,8 +1,7 @@
 function loadCommands(client) {
   const fs = require('fs');
   const config = require('../config');
-  require('colors');
-
+  require('@colors/colors');
   let commandsArray = [];
   let developerArray = [];
 
@@ -11,15 +10,11 @@ function loadCommands(client) {
     const commandFiles = fs
       .readdirSync(`./Commands/${folder}`)
       .filter((file) => file.endsWith('.js'));
-
     for (const file of commandFiles) {
       const commandFile = require(`../Commands/${folder}/${file}`);
-
       client.commands.set(commandFile.data.name, commandFile);
-
       if (commandFile.developer) developerArray.push(commandFile.data.toJSON());
       else commandsArray.push(commandFile.data.toJSON());
-
       console.log('[Commands]'.red + ` ${file.split('.')[0]} has been loaded.`);
       continue;
     }

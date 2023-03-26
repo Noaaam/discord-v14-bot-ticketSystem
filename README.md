@@ -25,7 +25,7 @@
 ``discord.js``
 ``discord-html-transcripts``
 ``mongoose``
-``colors``
+``@colors/colors``
 
 ## How to configure the bot ?
 

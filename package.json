@@ -9,7 +9,7 @@
   "author": "noam",
   "license": "ISC",
   "dependencies": {
-    "colors": "^1.4.0",
+    "@colors/colors": "^1.5.0",
     "discord-html-transcripts": "^3.1.2",
     "discord.js": "^14.7.1",
     "mongoose": "^6.8.3"
