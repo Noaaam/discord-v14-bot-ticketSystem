@@ -1,6 +1,6 @@
 ![](https://i.servimg.com/u/f66/20/08/95/81/sans_t11.png)
 
-## `An advanced ticket system, in discord.js v14, everything is configurable.`
+## `An advanced ticket system, in discord.js v14, everything is configurable. ⚠ The commercialization of my code is strictly prohibited!`
 
 
 🎬[See a preview](https://youtu.be/G9LgoFfvLQk)
