@@ -1,9 +1,10 @@
 ![](https://i.servimg.com/u/f66/20/08/95/81/sans_t11.png)
 
-## `An advanced ticket system, in discord.js v14, everything is configurable. ⚠ The commercialization of my code is strictly prohibited!`
+# An advanced ticket system, in discord.js v14, everything is configurable.
+## ⚠ The commercialization of my code is strictly prohibited!
 
 
-🎬[See a preview](https://youtu.be/G9LgoFfvLQk)
+[![See a preview](https://i.servimg.com/u/f66/20/08/95/81/ticket10.png)](https://youtu.be/G9LgoFfvLQk)
 
 
 
