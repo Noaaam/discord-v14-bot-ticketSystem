@@ -2,7 +2,7 @@ module.exports = {
     // Basic configuration
     token: '', // Place here your token
     status: 'v1.1',
-    developerGuildID: '1200050695320113173', // Place here your Guild ID
+    developerGuildID: '', // Place here your Guild ID
     database: '', // Place here your MongoDB access
 
     // Ticket configuration 
