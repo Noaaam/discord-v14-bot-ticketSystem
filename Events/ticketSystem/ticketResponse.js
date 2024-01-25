@@ -59,7 +59,7 @@ module.exports = {
                 const handlersmention = await channel.send({content : '<@&' + data.Handlers + '>'});
                 handlersmention.delete().catch(error => {return});
                 const ticketmessage = new EmbedBuilder().setDescription(config.ticketCreate + ' <#' + channel.id + '>').setColor('Green');
-                interaction.reply({embeds: [ticketmessage], ephemeral: true}).catch(error => {return});
+                interaction.reply({embeds: [ticketmessage], components: [new ActionRowBuilder().setComponents(new ButtonBuilder().setURL(`https://discord.com/channels/` + guild + '/' + channel.id).setLabel(config.ticketButtonCreated).setStyle(ButtonStyle.Link).setEmoji(config.ticketButtonCreatedEmoji))], ephemeral: true}).catch(error => {return});
             })
         } catch (err) {
             return console.log(err);
