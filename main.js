@@ -1,6 +1,8 @@
 const Discord = require('discord.js');
 const client = new Discord.Client({intents: 3276799});
 const config = require('./config');
+const currentVersion = "1.1";
+const { checkVersion } = require('./deps/version');
 const { connect, mongoose } = require('mongoose');
 const { ActivityType } = require('discord.js');
 const { loadEvents } = require('./Handlers/eventHandler');
@@ -22,6 +24,7 @@ client
     console.log('[MongoDB API] '.green + 'is now connected.')
     loadEvents(client);
     loadCommands(client);
+    checkVersion(currentVersion);
     });
     })
   .catch((err) => console.log(err));

@@ -1,6 +1,6 @@
 {
   "name": "discord-v14-bot-ticketsystem",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "",
   "main": "main.js",
   "scripts": {
@@ -9,9 +9,10 @@
   "author": "noam",
   "license": "ISC",
   "dependencies": {
-    "@colors/colors": "^1.5.0",
-    "discord-html-transcripts": "^3.1.2",
-    "discord.js": "^14.7.1",
-    "mongoose": "^6.8.3"
+    "@colors/colors": "^1.6.0",
+    "axios": "^1.6.6",
+    "discord-html-transcripts": "^3.2.0",
+    "discord.js": "^14.14.1",
+    "mongoose": "^8.1.1"
   }
 }

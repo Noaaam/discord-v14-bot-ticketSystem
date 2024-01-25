@@ -26,6 +26,7 @@
 ``discord-html-transcripts``
 ``mongoose``
 ``@colors/colors``
+``axios``
 
 ## How to configure the bot ?
 

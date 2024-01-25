@@ -11,11 +11,10 @@ module.exports = {
         await interaction.deferUpdate();
 		await interaction.deleteReply();
         const embed = new EmbedBuilder()
-        TicketSchema.findOne({GuildID: guild.id, ChannelID: channel.id}, async (err, data) => {
-            if (err) throw err;
-            if (!data) return interaction.reply({embeds: [embed.setColor('Red').setDescription(config.ticketError)], ephemeral: true}).catch(error => {return});
-            const findMembers = await TicketSchema.findOne({GuildID: guild.id, ChannelID: channel.id, MembersID: interaction.values[0]});
-            if(!findMembers) {
+        const data = await TicketSchema.findOne({GuildID: guild.id, ChannelID: channel.id});
+        if (!data) return interaction.reply({embeds: [embed.setColor('Red').setDescription(config.ticketError)], ephemeral: true}).catch(error => {return});
+        const findMembers = await TicketSchema.findOne({GuildID: guild.id, ChannelID: channel.id, MembersID: interaction.values[0]});
+        if(!findMembers) {
             data.MembersID.push(interaction.values[0]);
             channel.permissionOverwrites.edit(interaction.values[0], {
                 SendMessages: true,
@@ -24,12 +23,11 @@ module.exports = {
             }).catch(error => {return});
             interaction.channel.send({embeds: [embed.setColor('Green').setDescription('<@' + interaction.values[0] + '>' + ' ' + config.ticketMemberAdd)]}).catch(error => {return});
             data.save();
-            }else {
+        }else {
             data.MembersID.remove(interaction.values[0]);
             channel.permissionOverwrites.delete(interaction.values[0]).catch(error => {return});
             interaction.channel.send({embeds: [embed.setColor('Green').setDescription('<@' + interaction.values[0] + '>' + ' ' + config.ticketMemberRemove)]}).catch(error => {return});
             data.save();
-            }
-    })
+        }
     }
 }
