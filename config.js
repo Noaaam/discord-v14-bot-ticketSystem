@@ -9,6 +9,8 @@ module.exports = {
     ticketName: 'ticket-',
     ticketDescription: '🌿 Ticket open by',
     ticketCreate: '✅ Your ticket has been created',
+    ticketButtonCreated: 'View ticket',
+    ticketButtonCreatedEmoji: '👀',
     ticketAlreadyExist: 'Sorry but you already have an open ticket.',
     ticketNoPermissions: 'Sorry, but you do not have permission to do this.',
     ticketError: 'Something went wrong, try again later.',
